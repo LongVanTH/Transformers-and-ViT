@@ -4,6 +4,7 @@ from torch.utils.data import DataLoader
 from trainer import Trainer
 from vit import ViT
 from matplotlib import pyplot as plt
+import os
 
 # load cifar10 training data from torchvision
 train_dataset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transforms.ToTensor())
@@ -27,11 +28,12 @@ trainer = Trainer(transformer, train_dataloader, test_dataloader, learning_rate=
 trainer.train()
 
 # Plot the training loss, train accuracy and test accuracy
+os.makedirs("plots", exist_ok=True)
 plt.plot(trainer.loss_history)
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
 plt.title('Training loss history')
-plt.savefig('loss_out.png')
+plt.savefig('plots/loss_out.png')
 
 plt.clf()
 plt.xlabel("Epoch")
@@ -40,4 +42,4 @@ plt.title("Accuracy vs. iterations")
 plt.plot(*trainer.train_accuracy_history, label='train')
 plt.plot(*trainer.test_accuracy_history, label='test')
 plt.legend(loc='upper left')
-plt.savefig('acc_out.png')
+plt.savefig('plots/acc_out.png')
