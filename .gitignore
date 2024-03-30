@@ -1,2 +1,6 @@
-**__pycache__/**
+**/__pycache__/**
+**/plots/**
+checkpoints/
+data/
+coco_captioning/
 .DS_Store
