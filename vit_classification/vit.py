@@ -99,10 +99,10 @@ class ViT(nn.Module):
         
         # TODO (append a CLS token to the beginning of the sequence of patch embeddings)
         cls_token = self.cls_token.expand(patches.size(0), -1, -1)
-        output = torch.cat([cls_token, patches_embedded], dim=1)
+        patches_embedded = torch.cat([cls_token, patches_embedded], dim=1)
 
         output = self.positional_encoding(patches_embedded)
-        mask = torch.ones((self.num_patches, self.num_patches), device=self.device)
+        mask = torch.ones((self.num_patches + 1, self.num_patches + 1), device=self.device)
 
         for layer in self.layers:
             output = layer(output, mask)
